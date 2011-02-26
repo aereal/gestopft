@@ -1,0 +1,6 @@
+= gestopft
+
+== Description
+
+Framework for CLI Application (like {App::CLI}[http://search.cpan.org/dist/App-CLI/])
+
