@@ -8,15 +8,27 @@ module Gestopft
 end
 
 class Gestopft::App
-	def self.required(*args)
-		(@@requirements ||= []).concat(args.map {|arg|
-			"--" + arg.to_s
-		})
-	end
+	@given_options = {}
+	@expected_options = []
 
-	def run(argv)
-		unless @@requirements.all? {|req| argv.include? req }
-			raise Gestopft::NotSatisfiedRequirements
+	class << self
+		def options(*opts)
+			with_args, *no_args = opts.last.class == Hash ?
+				opts.reverse : [{}, opts].flatten
+			(@expected_options ||= []).concat(no_args).concat(with_args.keys)
+		end
+
+		def run(argv)
+			new(argv)
 		end
 	end
+
+	def given_options
+		self.class.module_eval { @given_options }
+	end
+
+	def expexted_options
+		self.class.module_eval { @expected_options }
+	end
 end
+
