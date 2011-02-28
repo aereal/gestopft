@@ -23,7 +23,7 @@ describe Gestopft::App do
 			end
 
 			it "does not have a option which does not given." do
-				subject.run(["--does-not-given"]).expexted_options.
+				subject.run([]).expexted_options.
 					should_not include(:does_not_given)
 			end
 
