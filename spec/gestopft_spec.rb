@@ -1,4 +1,3 @@
-#!spec
 # -*- coding: utf-8 -*-
 # vim: set ft=ruby:
 
@@ -35,6 +34,19 @@ describe Gestopft::App do
 			it "succeeds when not given a option which requires no arguments." do
 				expect { subject.run([]) }.
 					should_not raise_error(Gestopft::Error)
+			end
+		end
+
+		context "a option which may take a argument." do
+			before :all do
+				subject.module_eval do
+					options :with_args => [String]
+				end
+			end
+
+			it "has a option which given with taken value." do
+				subject.run(%w(--with-args myargs)).expected_options.
+					should include(:with_args => 'myargs')
 			end
 		end
 	end
