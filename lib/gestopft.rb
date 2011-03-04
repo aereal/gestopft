@@ -14,7 +14,7 @@ class Gestopft::App
 	class << self
 		def options(*opts)
 			with_args, *no_args = opts.last.class == Hash ?
-				opts.reverse : [{}, opts].flatten
+				opts.reverse : [{}, *opts]
 			(@expected_options ||= []).concat(no_args).concat(with_args.keys)
 		end
 
@@ -27,7 +27,7 @@ class Gestopft::App
 		self.class.module_eval { @given_options }
 	end
 
-	def expexted_options
+	def expected_options
 		self.class.module_eval { @expected_options }
 	end
 end
