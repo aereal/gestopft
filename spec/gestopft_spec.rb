@@ -17,12 +17,12 @@ describe Gestopft::App do
 			end
 
 			it "has a option which given." do
-				subject.run(["--with-no-args"]).expected_options.
+				subject.run(["--with-no-args"]).given_options.
 					should include(:with_no_args)
 			end
 
 			it "does not have a option which does not given." do
-				subject.run([]).expected_options.
+				subject.run([]).given_options.
 					should_not include(:does_not_given)
 			end
 
@@ -45,8 +45,8 @@ describe Gestopft::App do
 			end
 
 			it "has a option which given with taken value." do
-				subject.run(%w(--with-args myargs)).expected_options.
-					should include(:with_args => 'myargs')
+				subject.run(%w(--with-args myargs)).given_options.
+					should include(:with_args)
 			end
 		end
 	end
