@@ -22,7 +22,7 @@ describe Gestopft::App do
 			end
 
 			it "does not have a option which does not given." do
-				subject.run([]).given_options.
+				subject.run(["--with-no-args"]).given_options.
 					should_not include(:does_not_given)
 			end
 
@@ -31,9 +31,9 @@ describe Gestopft::App do
 					should_not raise_error(Gestopft::Error)
 			end
 
-			it "succeeds when not given a option which requires no arguments." do
+			it "succeeds when not given a option which is required." do
 				expect { subject.run([]) }.
-					should_not raise_error(Gestopft::Error)
+					should raise_error(Gestopft::NotSatisfiedRequirements)
 			end
 		end
 
@@ -46,6 +46,11 @@ describe Gestopft::App do
 
 			it "has a option which given with taken value." do
 				subject.run(%w(--with-args myargs)).given_options.
+					should include(:with_args)
+			end
+
+			it "has a option which given without any arguments." do
+				subject.run(%w(--with-args)).given_options.
 					should include(:with_args)
 			end
 		end

@@ -41,12 +41,14 @@ class Gestopft::App
 			when true
 				if @argv.delete(opt)
 					@given_options[name] = expect
+				else
+					raise Gestopft::NotSatisfiedRequirements
 				end
 			when Array # Optional argument
 				expected_type = expect.first
 				if pos = @argv.index(opt)
 					arg = @argv[pos + 1]
-					if arg[0..2] == '--'
+					if arg && arg[0..2] == '--'
 						@argv.delete(opt)
 						@given_options[name] = true
 					else
