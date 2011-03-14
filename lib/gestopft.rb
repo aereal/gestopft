@@ -3,11 +3,15 @@
 module Gestopft
 	VERSION = '0.0.1'
 
-	class Error < ::StandardError; end
-	class NotSatisfiedRequirements < Error; end
+	module Constants
+		class Error < ::StandardError; end
+		class NotSatisfiedRequirements < Error; end
+	end
 end
 
 class Gestopft::App
+	include Gestopft::Constants
+
 	@expected_options = {}
 
 	def self.expected_options
@@ -42,7 +46,7 @@ class Gestopft::App
 				if @argv.delete(opt)
 					@given_options[name] = expect
 				else
-					raise Gestopft::NotSatisfiedRequirements
+					raise NotSatisfiedRequirements
 				end
 			when Array # Optional argument
 				expected_type = expect.first
@@ -56,6 +60,19 @@ class Gestopft::App
 						@argv.compact!
 						@given_options[name] = arg
 					end
+				end
+			when Module
+				if pos = @argv.index(opt)
+					arg = @argv[pos + 1]
+					if arg && arg[0..2] != '--'
+						@argv[pos, 2] = nil
+						@argv.compact!
+						@given_options[name] = arg
+					else
+						raise NotSatisfiedRequirements
+					end
+				else
+					raise NotSatisfiedRequirements
 				end
 			end
 		end
