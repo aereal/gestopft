@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require "gestopft/core_ext"
+
 module Gestopft
 	VERSION = '0.0.1'
 
@@ -35,12 +37,15 @@ class Gestopft::App
 	attr_reader :given_options
 
 	def initialize(argv)
-		@argv = (seppos = argv.index('--')) ? argv[0...seppos] : argv.dup
+		@argv = argv.option_args
 		@expected_options = self.class.expected_options
 		@given_options = {}
+		parse_arg!
+	end
 
+	def parse_arg!
 		@expected_options.select {|name, expect| expect }.each do |name, expect|
-			opt = '--' + name.to_s.gsub('_', '-')
+			opt = name.to_option
 			case expect
 			when true
 				if @argv.delete(opt)
@@ -49,16 +54,14 @@ class Gestopft::App
 					raise NotSatisfiedRequirements
 				end
 			when Array # Optional argument
-				expected_type = expect.first
-				if pos = @argv.index(opt)
+				if pos = @argv.find_index(opt)
 					arg = @argv[pos + 1]
-					if arg && arg[0..2] == '--'
+					if arg && arg.option?
 						@argv.delete(opt)
 						@given_options[name] = true
 					else
-						@argv[pos, 2] = nil
-						@argv.compact!
-						@given_options[name] = arg
+						opt, param = @argv.slice!(pos, 2)
+						@given_options[name] = param
 					end
 				end
 			when Module
