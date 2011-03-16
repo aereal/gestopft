@@ -9,6 +9,8 @@ module Gestopft
 		class Error < ::StandardError; end
 		class NotSatisfiedRequirements < Error; end
 	end
+
+	autoload :Option, 'gestopft/option'
 end
 
 class Gestopft::App
@@ -31,7 +33,7 @@ class Gestopft::App
 	end
 
 	def self.run(argv)
-		new(argv)
+		new(argv).parse_arg!
 	end
 
 	attr_reader :given_options
@@ -40,7 +42,6 @@ class Gestopft::App
 		@argv = argv.option_args
 		@expected_options = self.class.expected_options
 		@given_options = {}
-		parse_arg!
 	end
 
 	def parse_arg!
@@ -65,12 +66,11 @@ class Gestopft::App
 					end
 				end
 			when Module
-				if pos = @argv.index(opt)
+				if pos = @argv.find_index(opt)
 					arg = @argv[pos + 1]
-					if arg && arg[0..2] != '--'
-						@argv[pos, 2] = nil
-						@argv.compact!
-						@given_options[name] = arg
+					if arg && !arg.option?
+						opt, param = @argv.slice!(pos, 2)
+						@given_options[name] = param
 					else
 						raise NotSatisfiedRequirements
 					end
@@ -79,6 +79,8 @@ class Gestopft::App
 				end
 			end
 		end
+	else
+		self
 	end
 end
 
