@@ -30,7 +30,7 @@ class Gestopft::App
 	end
 
 	def self.run(argv)
-		new(argv).parse_arg!
+		new(argv).parse_arg
 	end
 
 	attr_reader :options
@@ -41,7 +41,7 @@ class Gestopft::App
 		@options = {}
 	end
 
-	def parse_arg!
+	def parse_arg
 		@expectation.each do |opt|
 			if opt.require_args?
 				if (
@@ -50,14 +50,12 @@ class Gestopft::App
 					params.none? {|param| param.option? } and
 					params.size == opt.arity
 				)
-					@argv.slice!(pos, opt.arity + 1)
-					@argv.compact!
 					@options[opt.name] = params
 				else
 					raise NotSatisfiedRequirements
 				end
 			else
-				@options[opt.name] = @argv.delete(opt.option_name)
+				@options[opt.name] = opt.option_name
 			end
 		end
 		self
