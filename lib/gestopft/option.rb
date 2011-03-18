@@ -19,7 +19,7 @@ class Gestopft::Option
 	end
 
 	def arity
-		@params.empty? ? -1 : @params.size
+		@params.size
 	end
 end
 
