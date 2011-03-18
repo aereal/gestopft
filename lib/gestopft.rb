@@ -33,6 +33,10 @@ class Gestopft::App
 		new(argv).parse_arg
 	end
 
+	def self.commands
+		p public_instance_methods - Gestopft::App.public_instance_methods
+	end
+
 	attr_reader :options
 
 	def initialize(argv)

@@ -55,5 +55,23 @@ describe Gestopft::App do
 				should raise_error(NotSatisfiedRequirements)
 		end
 	end
+
+	context "when defined sub-commands" do
+		before do
+			subject.module_eval do
+				def update; end
+			end
+		end
+
+		it ".commands is a array of available commands." do
+			subject.commands.should == [:update]
+		end
+	end
+
+	context "when not defined sub-commands" do
+		it ".commands is empty array." do
+			subject.commands.should be_empty
+		end
+	end
 end
 
