@@ -1,4 +1,4 @@
-# -*- encoding: utf-8
+# encoding: utf-8
 
 class Gestopft::App
 	include Gestopft::Constants
@@ -18,6 +18,7 @@ class Gestopft::App
 
 	def self.run(argv=ARGV)
 		new(argv).parse_arg.dispatch
+		self
 	end
 
 	def self.commands
@@ -61,7 +62,7 @@ class Gestopft::App
 				return cmd.call(*params)
 			end
 		end
-		self
+		send(:__default__)
 	end
 
 	def help_message
