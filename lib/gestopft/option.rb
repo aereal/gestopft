@@ -5,7 +5,7 @@ class Gestopft::Option
 
 	def initialize(name, args={})
 		@name = name
-		@params = args[:params]
+		@params = args[:params] || []
 	end
 
 	def option_name
@@ -13,11 +13,11 @@ class Gestopft::Option
 	end
 
 	def require_args?
-		!!@params
+		!@params.empty?
 	end
 
 	def arity
-		@params.nil? ? -1 : @params.size
+		@params.empty? ? -1 : @params.size
 	end
 end
 
