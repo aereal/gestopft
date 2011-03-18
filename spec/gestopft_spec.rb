@@ -18,12 +18,12 @@ describe Gestopft::App do
 		end
 
 		it "has a option which given." do
-			subject.run(%w(--with-no-args)).given_options.
+			subject.run(%w(--with-no-args)).options.
 				should include(:with_no_args)
 		end
 
 		it "does not have a option which does not given." do
-			subject.run(%w(--with-no-args)).given_options.
+			subject.run(%w(--with-no-args)).options.
 				should_not include(:does_not_given)
 		end
 
@@ -46,7 +46,7 @@ describe Gestopft::App do
 		end
 
 		it "has a option which given with taken parameter." do
-			subject.run(%w(--delay 5)).given_options.
+			subject.run(%w(--delay 5)).options.
 				should include(:delay => ['5'])
 		end
 
