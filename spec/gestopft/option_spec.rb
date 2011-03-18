@@ -7,11 +7,29 @@ include Gestopft::Constants
 
 describe Gestopft::Option do
 	subject do
-		Gestopft::Option.new(:my_option)
+		Gestopft::Option.new(:my_option, :desc => "my description")
 	end
 
 	it "#option_name is option string." do
 		subject.option_name.should == '--my-option'
+	end
+
+	context "when given a description." do
+		it "#desc[ription] is the description about the option." do
+			subject.desc.should == "my description"
+			subject.description.should == "my description"
+		end
+	end
+
+	context "when does not given a description." do
+		subject do
+			Gestopft::Option.new(:my_option)
+		end
+
+		it "#desc[ription] is empty." do
+			subject.desc.should be_empty
+			subject.description.should be_empty
+		end
 	end
 
 	context "which requires parameters." do
