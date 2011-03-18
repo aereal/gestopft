@@ -59,12 +59,18 @@ describe Gestopft::App do
 	context "when defined sub-commands" do
 		before do
 			subject.module_eval do
-				def update; end
+				def update
+					:update
+				end
 			end
 		end
 
 		it ".commands is a array of available commands." do
 			subject.commands.should == [:update]
+		end
+
+		it "#dispatch return value which of sub-command's" do
+			subject.new(%w(update)).dispatch.should == subject.new([]).update
 		end
 	end
 

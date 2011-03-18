@@ -30,11 +30,11 @@ class Gestopft::App
 	end
 
 	def self.run(argv)
-		new(argv).parse_arg
+		new(argv).parse_arg.dispatch
 	end
 
 	def self.commands
-		p public_instance_methods - Gestopft::App.public_instance_methods
+		public_instance_methods - Gestopft::App.public_instance_methods
 	end
 
 	attr_reader :options
@@ -43,6 +43,7 @@ class Gestopft::App
 		@argv = argv.option_args
 		@expectation = self.class.expectation
 		@options = {}
+		@commands = self.class.commands.map {|cmd| method(cmd) }
 	end
 
 	def parse_arg
@@ -60,6 +61,17 @@ class Gestopft::App
 				end
 			else
 				@options[opt.name] = opt.option_name
+			end
+		end
+		self
+	end
+
+	def dispatch
+		argv = @argv.reject {|arg| arg.option? }
+		@commands.each do |cmd|
+			if pos = argv.find_index(cmd.name.to_s)
+				params = argv[pos + 1, cmd.arity.abs]
+				return cmd.call(*params)
 			end
 		end
 		self
