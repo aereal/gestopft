@@ -8,7 +8,8 @@ gemspec = Gem::Specification.new do |g|
 	g.platform = Gem::Platform::RUBY
 	g.summary = "Framework for CLI Application"
 	g.name = "gestopft"
-	g.version = "0.0.1"
+	g.version = "0.0.2"
+	g.author = "aereal"
 	g.email = "trasty.loose@gmail.com"
 	g.files = ["README.rdoc", ".autotest", ".rspec",
 		Dir.glob("lib/**/*.rb"), Dir.glob("spec/**/*.rb")
