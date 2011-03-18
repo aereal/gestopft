@@ -16,7 +16,7 @@ class Gestopft::App
 		})
 	end
 
-	def self.run(argv)
+	def self.run(argv=ARGV)
 		new(argv).parse_arg.dispatch
 	end
 
