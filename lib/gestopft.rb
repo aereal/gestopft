@@ -20,16 +20,17 @@ class Gestopft::App
 		@expectation ||= []
 	end
 
-	def self.option(name, args={})
-		expectation << Gestopft::Option.new(name, args)
+	def self.option(name, *args)
+		p desc = args.find {|arg| arg.is_a? String }
+		p params = args.find {|arg| arg.is_a? Array }
+		expectation << Gestopft::Option.new(name, {
+			:desc => desc,
+			:params => params
+		})
 	end
 
 	def self.run(argv)
 		new(argv).parse_arg!
-	end
-
-	class << self
-		alias_method :opt, :option
 	end
 
 	attr_reader :options
@@ -59,7 +60,6 @@ class Gestopft::App
 				@options[opt.name] = @argv.delete(opt.option_name)
 			end
 		end
-	else
 		self
 	end
 end

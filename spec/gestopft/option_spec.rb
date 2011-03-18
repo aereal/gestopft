@@ -7,7 +7,7 @@ include Gestopft::Constants
 
 describe Gestopft::Option do
 	subject do
-		Gestopft::Option.new(:my_option, :desc => "my description")
+		Gestopft::Option.new(:my_option, "my description")
 	end
 
 	it "#option_name is option string." do
@@ -34,7 +34,7 @@ describe Gestopft::Option do
 
 	context "which requires parameters." do
 		subject do
-			Gestopft::Option.new(:delay, :params => %w(minute))
+			Gestopft::Option.new(:delay, %w(minute))
 		end
 
 		it "#require_args? is true" do

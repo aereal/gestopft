@@ -41,7 +41,7 @@ describe Gestopft::App do
 	context "a option which require a argument." do
 		before :all do
 			subject.module_eval do
-				option :delay, :params => [:minute]
+				option :delay, [:minute]
 			end
 		end
 
