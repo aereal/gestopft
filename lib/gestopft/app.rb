@@ -17,8 +17,8 @@ class Gestopft::App
 	end
 
 	def self.run(argv=ARGV)
-		new(argv).parse_arg.dispatch
-		self
+		(app = new(argv)).parse_arg.dispatch
+		app
 	end
 
 	def self.commands
@@ -96,7 +96,7 @@ Commands:
 	end
 
 	def __default__
-		STDIN.puts help_message
+		STDOUT.puts help_message
 	end
 end
 
