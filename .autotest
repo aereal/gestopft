@@ -1,8 +1,0 @@
-# vim:set ft=ruby:
-
-Autotest.add_hook :initialize do |autotest|
-	autotest.add_mapping %r{lib/.*\.rb$} do |f, m|
-		Dir.glob "spec/**/*.rb"
-	end
-end
-
