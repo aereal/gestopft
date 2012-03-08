@@ -1,25 +1,25 @@
 # encoding: utf-8
 
 class Gestopft::Option
-	attr_reader :name, :params, :description
-	alias_method :desc, :description
+  attr_reader :name, :params, :description
+  alias_method :desc, :description
 
-	def initialize(name, args={})
-		@name = name
-		@params = args[:params] || []
-		@description = args[:desc] || args[:description] || ""
-	end
+  def initialize(name, args={})
+    @name = name
+    @params = args[:params] || []
+    @description = args[:desc] || args[:description] || ""
+  end
 
-	def option_name
-		@name.to_option
-	end
+  def option_name
+    @name.to_option
+  end
 
-	def require_args?
-		!@params.empty?
-	end
+  def require_args?
+    !@params.empty?
+  end
 
-	def arity
-		@params.size
-	end
+  def arity
+    @params.size
+  end
 end
 

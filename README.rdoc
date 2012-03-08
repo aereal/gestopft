@@ -9,25 +9,25 @@ Framework for CLI Application (like {App::CLI}[http://search.cpan.org/dist/App-C
 
 === Archive
 
-	rake install
+  rake install
 
 === Gem
 
-	gem install gestopft
+  gem install gestopft
 
 
 == Synopsis
 
-	require "gestopft"
+  require "gestopft"
 
-	class Echo < Gestopft::App
-		option :verbose, "print debug messages."
+  class Echo < Gestopft::App
+    option :verbose, "print debug messages."
 
-		def echo(message)
-			puts "Echo#echo is invoked." if @options[:verbose]
-			puts message
-		end
-	end
+    def echo(message)
+      puts "Echo#echo is invoked." if @options[:verbose]
+      puts message
+    end
+  end
 
 
 == Copyright
