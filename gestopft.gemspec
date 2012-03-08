@@ -12,4 +12,7 @@ Gem::Specification.new do |g|
   g.homepage = "https://github.com/aereal/gestopft"
   g.require_path = ["lib"]
   g.platform = Gem::Platform::RUBY
+
+  g.add_development_dependency 'rspec', ['~> 2.8.0']
+  g.add_development_dependency 'rake', ['~> 0.9.2']
 end
