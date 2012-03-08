@@ -1,14 +1,13 @@
-# vim:set ft=ruby:
-
 Gem::Specification.new do |g|
   g.name = "gestopft"
   g.version = "0.0.1"
   g.summary = "Framework for CLI Application"
-  g.files = ["README.rdoc", ".rspec", ".autotest",
-    Dir.glob("lib/**/*.rb"), Dir.glob("spec/**/*.rb")
-  ]
-  g.authors = ["AOKI,Hanae"]
-  g.email = "trasty.loose@gmail.com"
-  g.homepage = "http://github.com/aereal/gestopft"
+  g.executables = `git ls-files -- bin/*`.split("\n").map {|f| File.basename(f) }
+  g.files = `git ls-files`.split("\n")
+  g.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  g.authors = ["aereal"]
+  g.email = ["aereal@kerare.org"]
+  g.homepage = "https://github.com/aereal/gestopft"
+  g.require_path = ["lib"]
+  g.platform = Gem::Platform::RUBY
 end
-
