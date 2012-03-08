@@ -1,6 +1,8 @@
+require File.expand_path('../lib/gestopft/version', __FILE__)
+
 Gem::Specification.new do |g|
   g.name = "gestopft"
-  g.version = "0.0.1"
+  g.version = Gestopft::VERSION
   g.summary = "Framework for CLI Application"
   g.executables = `git ls-files -- bin/*`.split("\n").map {|f| File.basename(f) }
   g.files = `git ls-files`.split("\n")
