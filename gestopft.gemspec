@@ -13,7 +13,7 @@ Gem::Specification.new do |g|
   g.require_path = ["lib"]
   g.platform = Gem::Platform::RUBY
 
-  g.add_development_dependency 'rspec', ['~> 2.8.0']
+  g.add_development_dependency 'rspec', ['~> 2.8']
   g.add_development_dependency 'rake', ['~> 0.9.2']
   g.add_development_dependency 'guard-bundler'
   g.add_development_dependency 'guard-rspec'
