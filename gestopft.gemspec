@@ -15,9 +15,4 @@ Gem::Specification.new do |g|
 
   g.add_development_dependency 'rspec', ['~> 2.8']
   g.add_development_dependency 'rake', ['~> 0.9.2']
-  g.add_development_dependency 'guard-bundler'
-  g.add_development_dependency 'guard-rspec'
-  g.add_development_dependency 'guard-spork'
-  g.add_development_dependency 'spork'
-  g.add_development_dependency 'fivemat'
 end
