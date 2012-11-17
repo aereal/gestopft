@@ -1,6 +1,2 @@
 --color
---format Fivemat
---fail-fast
---drb
---drb-port 8989
 --require ./spec/spec_helper.rb
